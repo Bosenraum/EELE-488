@@ -10,7 +10,7 @@
   
 */
 #include <Servo.h>                           // Include servo library
-//#include <basic_defines.h>                   // Include custom defines library
+//#include "basic_defines.h"                   // Include custom defines library
  
 Servo servoLeft;                             // Declare left servo
 int middle = 63;                             // Set the default value of the line to 63.
@@ -21,7 +21,8 @@ int middle = 63;                             // Set the default value of the lin
 #define CLKpin 2     // Clock - red
                      // Vcc - brown
                      // GND - black
- 
+
+// Added definition to library
 #define NPIXELS 128  // No. of pixels in array
  
 byte Pixel[NPIXELS]; // Field for measured values <0-255>
