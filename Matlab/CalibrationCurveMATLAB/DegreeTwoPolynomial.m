@@ -53,6 +53,6 @@ xPoints = [0, 63, 127];
 plot(tt, y, 'b', xPoints, points, 'r o', xV, yV, 'g--')
 text(5, 1600, eq1);
 text (68, 1450, eq2);
-title('Degree 2 polynomial curve')
+title('Two Second Order Steering Curves')
 ylabel('PWM to Servo')
 xlabel ('Center of Line Position')
