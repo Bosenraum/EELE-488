@@ -1,6 +1,6 @@
 %% Calibration Curve
 %  Garret Hilton, Austin Rosenbaum, Meshal Albiaz
-%  EELE 488 Montana State Univerity 
+%  EELE 489 Montana State Univerity 
 %
 %  Second Order Polynomial Calibration curve 
 %  inputs:
