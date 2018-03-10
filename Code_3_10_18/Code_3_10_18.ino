@@ -33,6 +33,13 @@ AF_DCMotor motorL(2);
 #define VIOLET 0x5
 #define WHITE 0x7
 
+/// EEPROM VARIABLES ///
+eeAddr = 0;
+centerAddr = 0;
+rightAddr  = 2;
+leftAddr   = 4;
+
+
 Servo servoSteer;                             // Declare left servo
 int middle = 63;                             // Set the default value of the line to 63.
 int threshold = 70;
@@ -296,6 +303,7 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           center = servoPWMtime;
+          EEPROM[centerAddr] = center;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -322,6 +330,7 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           left = servoPWMtime;
+          EEPROM[leftAddr] = left;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -348,6 +357,7 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           right = servoPWMtime;
+          EEPROM[rightAddr] = right;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -393,6 +403,11 @@ void calibrateServoMenu(){
           lcd.setBacklight(BLUE);
           if (string[0]=='<'){
             calibrateServo();
+          }else{
+            // Skip calibration and read values stored in EEPROM
+            center = EEPROM[centerAddr];
+            right  = EEPROM[rightAddr];
+            left   = EEPROM[leftAddr];
           }
           
         }
