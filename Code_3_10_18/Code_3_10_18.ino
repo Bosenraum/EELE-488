@@ -16,6 +16,10 @@
 //#include "threshold.h"
 #include <AFMotor.h>
 
+/// TYPEDEFS ////
+// Define 8 bit integer type
+typedef unsigned char INT8U;
+
 // The shield uses the I2C SCL and SDA pins. On classic Arduinos
 // this is Analog 4 and 5 so you can't use those for analogRead() anymore
 // However, you can connect other I2C sensors to the I2C bus and share
@@ -303,7 +307,10 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           center = servoPWMtime;
-          EEPROM[centerAddr] = center;
+          INT8U c0 = (INT8U)((center >> 8) & 0xFF);
+          INT8U c1 = (INT8U)((center) & 0xFF);
+          EEPROM[centerAddr] = c0;
+          EEPROM[centerAddr + 1] = c1;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -330,7 +337,10 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           left = servoPWMtime;
-          EEPROM[leftAddr] = left;
+          INT8U l0 = (INT8U)((left >> 8) & 0xFF);
+          INT8U l1 = (INT8U)((left) & 0xFF);
+          EEPROM[leftAddr] = l0;
+          EEPROM[leftAddr + 1] = l1;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -357,7 +367,10 @@ void calibrateServo(){
         if (buttons & BUTTON_SELECT) {
           done = true;
           right = servoPWMtime;
-          EEPROM[rightAddr] = right;
+          INT8U r0 = (INT8U)((right >> 8) & 0xFF);
+          INT8U r1 = (INT8U)((right) & 0xFF);
+          EEPROM[rightAddr] = r0;
+          EEPROM[rightAddr + 1] = r1;
           lcd.setBacklight(GREEN);
           delay(500);
           lcd.setBacklight(BLUE);
@@ -405,9 +418,17 @@ void calibrateServoMenu(){
             calibrateServo();
           }else{
             // Skip calibration and read values stored in EEPROM
-            center = EEPROM[centerAddr];
-            right  = EEPROM[rightAddr];
-            left   = EEPROM[leftAddr];
+            INT8U c0 = EEPROM[centerAddr];
+            INT8U c1 = EEPROM[ceneterAddr + 1];
+            center = (c0 << 8) | c1;
+            
+            INT8U r0 = EEPROM[rightAddr];
+            INT8U r1 = EEPROM[rightAddr + 1];
+            right = (r0 << 8) | r1;
+            
+            INT8U l0 = EEPROM[leftAddr];
+            INT8U l1 = EEPROM[leftAddr + 1];
+            left = (l0 << 8) | l1;
           }
           
         }
