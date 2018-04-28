@@ -56,3 +56,28 @@ text (68, 1450, eq2);
 title('Two Second Order Steering Curves')
 ylabel('PWM to Servo')
 xlabel ('Center of Line Position')
+
+%%
+center = 1500;
+left = 1300;
+right = 1800;
+
+slope = (center - left)/64;
+b1 = center - slope*64;
+slope2 = (right - center)/64;
+b2 = right - slope2*128;
+tt = 1:1:128;
+%y = slope*tt + b1;
+%y2 = slope2*tt + b2;
+
+y = zeros(1, 128);
+for kk = 1:128
+    if kk <= 63
+        y(kk) = slope*kk + b1;
+    else
+        y(kk) = slope2*kk + b2;
+    end
+    
+end
+
+plot(tt, y)
